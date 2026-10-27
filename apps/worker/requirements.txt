@@ -1,0 +1,18 @@
+celery==5.4.0
+redis==5.0.8
+sqlalchemy==2.0.35
+psycopg[binary]==3.2.2
+pydantic==2.9.2
+pydantic-settings==2.5.2
+boto3==1.35.24
+
+# The real (WORKER_STUB_MODE=false) pipelines need heavy GPU/ML deps that are
+# deliberately NOT pinned here, so this image stays lightweight for the stubbed
+# dev/CI flow. Install them on the GPU box per README.md "GPU worker setup":
+#
+#   StudioPipeline (default): torch, TTS (Coqui XTTS-v2), plus clones of
+#     Hallo2 (github.com/fudan-generative-vision/hallo2) and Robust Video
+#     Matting (github.com/PeterL1n/RobustVideoMatting) and their weights.
+#   OpenMontagePipeline (legacy): the OpenMontage repo's own deps + SadTalker.
+#
+# ffmpeg (used for the matting composite + transcode) must be on PATH either way.
